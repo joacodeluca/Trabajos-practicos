@@ -15,10 +15,10 @@ namespace BuscaBDAlumnos
     {
         static void Main (string [] args)
         {
-            // Variable que controla el bucle
+            
             bool continuar = true;
 
-            // Todo lo que esté adentro de este while se va a repetir
+            
             while (continuar)
             {
                 Console.Clear();
@@ -45,14 +45,14 @@ namespace BuscaBDAlumnos
                         Console.WriteLine("¡Conexión exitosa al servidor MySQL! \n");
                         Console.ResetColor();
 
-                        // 3. Consulta SQL parametrizada
+                        
                         string query = "SELECT legajo, nombre, apellido, email, carrera, turno, fecha_inscripcion FROM alumnos WHERE legajo = @legajo";
                         
                         using (MySqlCommand comando = new MySqlCommand(query, conexion))
                         {
                             comando.Parameters.AddWithValue("@legajo", legajoBuscado);
 
-                            // 4. Lectura de datos
+                      
                             using (MySqlDataReader lector = comando.ExecuteReader())
                             {
                                 if (lector.Read())
@@ -92,18 +92,18 @@ namespace BuscaBDAlumnos
                     }
                 }
                 
-                // --- ACÁ ESTÁ LA MAGIA DEL BUCLE ---
+                
                 Console.WriteLine("\n¿Desea buscar otro alumno? (S/N): ");
                 string respuesta = Console.ReadLine() ?? "";
 
-                // Si escribe algo distinto a "S" o "s", el bucle se rompe
+               
                 if (respuesta.Trim().ToUpper() != "S")
                 {
                     continuar = false; 
                 }
             } // Fin del while
 
-            // Mensaje de despedida cuando sale del bucle
+           
             Console.Clear();
             Console.WriteLine("¡Saliendo del sistema! Hasta luego.");
         }
